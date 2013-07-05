@@ -19,6 +19,7 @@ var AerogearGenerator = module.exports = function AerogearGenerator(args, option
     this.installDependencies({ skipInstall: options['skip-install'] });
   });
 
+  this.indexFile = this.readFileAsString(path.join(this.sourceRoot(), 'index.html'));
   this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
 };
 
@@ -47,9 +48,18 @@ AerogearGenerator.prototype.askFor = function askFor() {
 AerogearGenerator.prototype.app = function app() {
   this.mkdir('app');
   this.mkdir('app/templates');
+  this.write('app/index.html', this.indexFile);
+};
 
-  this.copy('Gruntfile.js', 'Gruntfile.js');
-  this.copy('_package.json', 'package.json');
+AerogearGenerator.prototype.gruntfile = function gruntfile() {
+  this.template('Gruntfile.js');
+};
+
+AerogearGenerator.prototype.packageJSON = function packageJSON() {
+  this.template('_package.json', 'package.json');
+};
+
+AerogearGenerator.prototype.bower = function bower() {
   this.copy('_bower.json', 'bower.json');
 };
 
