@@ -61,6 +61,7 @@ AerogearGenerator.prototype.packageJSON = function packageJSON() {
 
 AerogearGenerator.prototype.bower = function bower() {
   this.copy('_bower.json', 'bower.json');
+  this.copy('_.bowerrc', '.bowerrc');
 };
 
 AerogearGenerator.prototype.projectfiles = function projectfiles() {
